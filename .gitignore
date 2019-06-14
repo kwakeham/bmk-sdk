@@ -39,3 +39,5 @@ bmk_master_Debug.jlink
 bmk_master_Release.jlink
 bmk_slave_Debug.jlink
 bmk_slave_Release.jlink
+
+nrf5_sdk/

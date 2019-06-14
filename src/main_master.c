@@ -82,9 +82,9 @@ typedef struct key_s {
     bool is_key;
     uint8_t modifiers;
     uint8_t key;
-} key_t;
+} key_t2;
 
-static key_t m_keys[KEY_NUM];
+static key_t2 m_keys[KEY_NUM];
 static int m_key_count = 0;
 
 static bool m_translate_key_index_task_queued = false;
@@ -163,7 +163,7 @@ static void scan_start(void);
 // Firmware functions.
 static void firmware_init(void);
 static void scan_matrix_task(void *p_data, uint16_t size);
-static bool update_key_index(int8_t index, uint8_t source);
+static void update_key_index(int8_t index, uint8_t source);
 static void put_translate_key_index_task(void);
 static void translate_key_index_task(void *p_data, uint16_t size);
 static void put_generate_hid_report_task(void);
@@ -176,7 +176,10 @@ static void clear_slave_key_index_task(void *p_data, uint16_t size);
 int main(void) {
     // Initialize.
     // nRF52.
+
     log_init();
+    NRF_LOG_INFO("entered main");
+    NRF_LOG_FLUSH();
     timers_init();
     power_management_init();
     ble_stack_init();
@@ -833,7 +836,7 @@ static void reset_device(void) {
 }
 
 static void peers_refresh(void) {
-    ret_code_t err_code;
+    // ret_code_t err_code;
     pm_peer_id_t peer_id;
 
     // Delete not old peers.
@@ -1034,7 +1037,7 @@ static void scan_matrix_task(void *p_data, uint16_t size) {
     UNUSED_PARAMETER(p_data);
     UNUSED_PARAMETER(size);
 
-    ret_code_t err_code;
+    // ret_code_t err_code;
     bool has_key_press = false;
     bool has_key_release = false;
 
@@ -1097,8 +1100,8 @@ static void scan_matrix_task(void *p_data, uint16_t size) {
     }
 }
 
-static bool update_key_index(int8_t index, uint8_t source) {
-    key_t key = {0};
+static void update_key_index(int8_t index, uint8_t source) {
+    key_t2 key = {0};
 
     key.index = index;
     key.source = source;

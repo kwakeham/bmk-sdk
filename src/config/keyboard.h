@@ -1,6 +1,8 @@
 #ifndef _KEYBOARD_H_
 #define _KEYBOARD_H_
 
+#define MASTER
+
 #include <stdint.h>
 
 #include "pin_mapping.h"
